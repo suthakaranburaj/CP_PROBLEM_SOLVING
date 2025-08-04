@@ -1,5 +1,5 @@
 /*
-    author : suthakaranburaj
+    author : suthakar_09
 */
 #include <bits/stdc++.h>
 using namespace std;
@@ -12,16 +12,10 @@ using namespace std;
 /*
     Happy Coding
 */
-
-void check_nth_bit(int &n ,int &i){
-    string ans = ((n & 1<<i-1) ? "Yes" : "No");
-    cout<<ans<<endl;
-}
 void solve() {
-    int n,i;
-    cin>>n>>i;
-    // cout<<endl;
-    check_nth_bit(n,i);
+    int n;
+    cin>>n;
+    cout<<((n & 1) ? "Odd" : "Even")<<endl;
 }
 
 int main() {
@@ -34,10 +28,8 @@ int main() {
     
     int a;
     cin>>a;
-    // cout<<endl;
     while(a--) {
         solve();
     }
-    
     return 0;
 }
