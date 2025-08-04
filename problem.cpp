@@ -14,11 +14,13 @@ using namespace std;
 */
 
 void check_nth_bit(int &n ,int &i){
-  string ans = 
+    string ans = ((n & 1<<i-1) ? "Yes" : "No");
+    cout<<ans<<endl;
 }
 void solve() {
     int n,i;
     cin>>n>>i;
+    // cout<<endl;
     check_nth_bit(n,i);
 }
 
@@ -32,6 +34,7 @@ int main() {
     
     int a;
     cin>>a;
+    // cout<<endl;
     while(a--) {
         solve();
     }

@@ -1,5 +1,5 @@
 /*
-    author : suthakaranburaj
+    author : suthakar_09
 */
 #include <bits/stdc++.h>
 using namespace std;
@@ -29,6 +29,5 @@ int main() {
     while(a--) {
         solve();
     }
-    
     return 0;
 }
