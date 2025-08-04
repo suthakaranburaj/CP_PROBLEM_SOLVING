@@ -15,7 +15,7 @@ using namespace std;
 void solve() {
     int n;
     cin>>n;
-    cout<<((n & 1) ? "Odd" : "Even")<<endl;
+    cout<<((n & (n-1) ? "No" : "Yes"))<<endl;
 }
 
 int main() {
