@@ -15,7 +15,14 @@ using namespace std;
 void solve() {
     int n;
     cin>>n;
-    cout<<((n & (n-1) ? "No" : "Yes"))<<endl;
+    int ans = 0;
+    while(n){
+        if(n & 1){
+            ans++;
+        }
+        n = n >> 1;
+    }
+    cout<<ans<<endl;
 }
 
 int main() {
