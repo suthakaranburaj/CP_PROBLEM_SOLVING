@@ -13,13 +13,31 @@ using namespace std;
     Happy Coding
 */
 void solve() {
-    int a , b;
-    cin>>a>>b;
-    int ans = a;
-    for(int i = a + 1;i<=b;i++){
-        ans = ans ^ i;
+    int n;
+    cin>>n;
+    int arr[n];
+    int result = 0;
+    for(int i = 0;i<n;i++){
+        cin>>arr[i];
+        result ^= arr[i];
     }
-    cout<<ans<<endl;
+
+    int diff_bit = result & -result;
+
+    int num1 = 0, num2 = 0;
+    for (int i = 0;i<n;i++) {
+        if (arr[i] & diff_bit)
+            num1 ^= arr[i];
+        else
+            num2 ^= arr[i];
+    }
+
+    // Step 4: Return sorted result
+    if (num1 < num2)
+        cout<<num1<<" "<<num2<<endl;
+    else
+        cout<<num2<<" "<<num1<<endl;
+    
 }
 
 int main() {
