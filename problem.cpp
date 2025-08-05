@@ -13,66 +13,42 @@ using namespace std;
     Happy Coding
 */
 
-// Sieve of Eratosthenes
-vector<bool> find_prime_nums(int max_num) {
-    vector<bool> prime(max_num + 1, true);
-    prime[0] = prime[1] = false;
+int divide(int dividend, int divisor) {
+    // Step 1: Handle overflow case
+    if (dividend == INT_MIN && divisor == -1) {
+        return INT_MAX;
+    }
 
-    for (int i = 2; i * i <= max_num; i++) {
-        if (prime[i]) {
-            for (int j = i * i; j <= max_num; j += i) {
-                prime[j] = false;
-            }
+    // Step 2: Convert to long long to avoid overflow
+    long long a = abs((long long)dividend); // Convert to positive
+    long long b = abs((long long)divisor);
+
+    long long result = 0;
+
+    // Step 3: Bitwise subtraction logic
+    // Start from 31 down to 0 to check the highest power of 2 multiple
+    for (int i = 31; i >= 0; i--) {
+        if ((a >> i) >= b) {
+            a -= (b << i);        // Subtract b * 2^i from a
+            result += (1LL << i); // Add 2^i to result
         }
     }
-    return prime;
+
+    // Step 4: Apply the sign
+    // If dividend and divisor have different signs, make result negative
+    if ((dividend < 0) != (divisor < 0)) {
+        result = -result;
+    }
+
+    // Step 5: Return the final result as int
+    return (int)result;
 }
 
 void solve() {
-    int n;
-    cin >> n;
-    vector<int> arr(n);
-    for(int i = 0; i < n; i++) {
-        cin >> arr[i];
-    }
-
-    int max_num = *max_element(all(arr));
-    vector<bool> is_prime = find_prime_nums(max_num);
-
-    // Store all primes up to max_num
-    vector<int> primes;
-    for (int i = 2; i <= max_num; i++) {
-        if (is_prime[i]) {
-            primes.push_back(i);
-        }
-    }
-
-    vector<vector<int>> ans;
-
-    for (int i = 0; i < n; i++) {
-        int num = arr[i];
-        vector<int> factors;
-        
-        for (int prime : primes) {
-            while (num % prime == 0) {
-                factors.push_back(prime);
-                num /= prime;
-            }
-            if (num == 1) break;
-        }
-        
-        if (num > 1) factors.push_back(num);  // For remaining prime > sqrt(n)
-        ans.push_back(factors);
-    }
-
-    // Print result
-    for (const auto& vec : ans) {
-        cout << "[ ";
-        for (int val : vec) {
-            cout << val << " ";
-        }
-        cout << "]\n";
-    }
+    int a, b;
+    cin>>a>>b;
+    int result = divide(a,b);
+    cout<<result<<endl;
 }
 
 int main() {
@@ -82,10 +58,9 @@ int main() {
     freopen("output.txt", "w", stdout);
 #endif
     fastio;
-    
-    int t;
-    cin >> t;
-    while(t--) {
+    int a;
+    cin>>a;
+    while(a--) {
         solve();
     }
     return 0;
