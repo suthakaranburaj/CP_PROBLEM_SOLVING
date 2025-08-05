@@ -13,15 +13,13 @@ using namespace std;
     Happy Coding
 */
 void solve() {
-    int n;
-    cin>>n;
-    int arr[n];
-    int result = 0;
-    for(int i = 0;i<n; i++){
-        cin>>arr[i];    
-        result ^= arr[i];
+    int a , b;
+    cin>>a>>b;
+    int ans = a;
+    for(int i = a + 1;i<=b;i++){
+        ans = ans ^ i;
     }
-    cout<<result<<endl;
+    cout<<ans<<endl;
 }
 
 int main() {
