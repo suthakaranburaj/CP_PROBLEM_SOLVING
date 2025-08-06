@@ -9,17 +9,18 @@ using namespace std;
 #define all(x) (x).begin(),(x).end()
 #define sz(a) (int)(a).size()
 
-/*
-    Happy Coding
-*/
 void print_1d_array(vector<int>&arr){
     int n = arr.size();
     cout<<"[";
     for(int i = 0;i<n;i++){
-        cout<<arr[i]<<",";
+        cout<<arr[i]<<" ";
     }
     cout<<endl;
 }
+
+/*
+    Happy Coding
+*/
 void solve() {
     cout << "Hello" << endl;
 }
