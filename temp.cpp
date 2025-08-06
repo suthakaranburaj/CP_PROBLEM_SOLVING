@@ -12,6 +12,14 @@ using namespace std;
 /*
     Happy Coding
 */
+void print_1d_array(vector<int>&arr){
+    int n = arr.size();
+    cout<<"[";
+    for(int i = 0;i<n;i++){
+        cout<<arr[i]<<",";
+    }
+    cout<<endl;
+}
 void solve() {
     cout << "Hello" << endl;
 }

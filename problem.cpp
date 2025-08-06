@@ -9,35 +9,35 @@ using namespace std;
 #define all(x) (x).begin(),(x).end()
 #define sz(a) (int)(a).size()
 
+void print_1d_array(vector<int>&arr){
+    int n = arr.size();
+    cout<<"[";
+    for(int i = 0;i<n;i++){
+        cout<<arr[i]<<",";
+    }
+    cout<<"]";
+    cout<<endl;
+}
 /*
     Happy Coding
 */
 void solve() {
     int n;
     cin>>n;
-    int arr[n];
-    int result = 0;
-    for(int i = 0;i<n;i++){
-        cin>>arr[i];
-        result ^= arr[i];
+    vector<int> small_divisors, large_divisors;
+
+    for (int i = 1; i * i <= n; ++i) {
+        if (n % i == 0) {
+            small_divisors.push_back(i);
+            if (i != n / i) {
+                large_divisors.push_back(n / i);
+            }
+        }
     }
 
-    int diff_bit = result & -result;
-
-    int num1 = 0, num2 = 0;
-    for (int i = 0;i<n;i++) {
-        if (arr[i] & diff_bit)
-            num1 ^= arr[i];
-        else
-            num2 ^= arr[i];
-    }
-
-    // Step 4: Return sorted result
-    if (num1 < num2)
-        cout<<num1<<" "<<num2<<endl;
-    else
-        cout<<num2<<" "<<num1<<endl;
-    
+    reverse(large_divisors.begin(), large_divisors.end());
+    small_divisors.insert(small_divisors.end(), large_divisors.begin(), large_divisors.end());
+    print_1d_array(small_divisors);
 }
 
 int main() {
