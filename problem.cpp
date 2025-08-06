@@ -21,30 +21,15 @@ void print_1d_array(vector<int>&arr){
 /*
     Happy Coding
 */
-
-//also find 1st and 2nd min
 void solve() {
-    int n;
-    cin>>n;
-    vector<int>arr(n);
-    int min_ans = INT_MAX;
-    int min_1 = INT_MAX;
-    int min_2 = INT_MAX;
-
-    for(int i = 0;i<n;i++){
-        cin>>arr[i];
-        if (arr[i] < min_1) {
-            min_2 = min_1;
-            min_1 = arr[i];
-        } else if (arr[i] < min_2) {
-            min_2 = arr[i];
-        }
-        if(i == 0) continue;
-        int temp = arr[i]/2+arr[i-1];
-        min_ans = min(min_ans , temp);
+    int a1, b1, a2, b2;
+    cin >> a1 >> b1 >> a2 >> b2;
+    int total = 5 * (a1 - a2) + (b1 - b2);
+    if (total < 0 || total % 6 != 0) {
+        cout << "No\n";
+    } else {
+        cout << "Yes\n";
     }
-    int final_ans = min(min_ans,min_1+min_2);
-    cout<<final_ans<<endl;
 }
 
 int main() {
