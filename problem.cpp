@@ -8,50 +8,77 @@ using namespace std;
 #define ss second
 #define all(x) (x).begin(),(x).end()
 #define sz(a) (int)(a).size()
-class ArrayStack {
+class ArrayQueue {
 public:
     int *arr;
     int size;
-    int top;
-    
-    ArrayStack(int size) {
+    int rear;
+    int front;
+
+    ArrayQueue(int size) {
         this->size = size;
         this->arr = new int[size];
-        this->top = -1;
-        cout << "Stack Created Successfully!" << endl;
+        this->rear = -1;
+        this->front = -1;
+        cout << "Queue Created Successfully!" << endl;
     }
 
     void push(int x) {
-        if (this->top == this->size - 1) { 
-            cout << "Stack is full" << endl;
+        if (this->rear == size - 1) { // FIXED
+            cout << "Queue is full!" << endl;
+            return;
+        } else if (this->rear == -1 && this->front == -1) {
+            this->rear = this->front = 0;
         } else {
-            this->top++;
-            arr[this->top] = x;
-            cout << x << " Inserted Successfully!" << endl;
+            this->rear++;
         }
+        arr[this->rear] = x;
+        cout << "Data added successfully!" << endl;
     }
 
     int pop() {
-        if (this->top == -1) {
-            cout << "No data in stack!" << endl;
+        if (this->front == -1 && this->rear == -1) {
+            cout << "Queue is empty" << endl;
             return -1;
+        } else if (this->front == this->rear) {
+            int val = arr[front];
+            arr[front] = -1;
+            this->front = -1;
+            this->rear = -1;
+            cout << "Data popped successfully!" << endl;
+            return val;
         } else {
-            return this->arr[this->top--];
+            int val = arr[front];
+            arr[front] = -1;
+            this->front++;
+            cout << "Data popped successfully!" << endl;
+            return val;
         }
     }
 
-    int topElement() {
-        if (this->top == -1) {
-            cout << "No data in stack!" << endl;
+    int rearElement() {
+        if (isEmpty()) {
+            cout << "Queue is empty" << endl;
             return -1;
         }
-        return this->arr[this->top];
+        return this->arr[this->rear];
     }
 
     bool isEmpty() {
-        return this->top == -1;
+        return this->rear == -1 && this->front == -1;
+    }
+
+    void print_queue() {
+        if (isEmpty()) {
+            cout << "Queue is empty!" << endl;
+            return;
+        }
+        for (int i = this->front; i <= this->rear; i++) {
+            cout << "Element " << i << " = " << this->arr[i] << endl;
+        }
     }
 };
+
 
 
 void print_1d_array(vector<int>&arr){
@@ -78,15 +105,16 @@ int main() {
 #endif
     fastio;
     
-    ArrayStack st(5);
+    ArrayQueue st(5);
     st.push(10);
     st.push(20);
-    cout << "Top: " << st.topElement() << endl;
+    cout << "rear: " << st.rearElement() << endl;
     st.push(30);
     cout << "Pop: " << st.pop() << endl;
-    cout << "Top after pop: " << st.topElement() << endl;
+    cout << "rear after pop: " << st.rearElement() << endl;
 
-    if (st.isEmpty()) cout << "Stack is empty\n";
-    else cout << "Stack is not empty\n";
+    if (st.isEmpty()) cout << "Queue is empty\n";
+    else cout << "Queue is not empty\n";
+    st.print_queue();
     return 0;
 }
