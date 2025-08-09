@@ -1,4 +1,6 @@
-/* author : suthakar_09 */
+/*
+    author : suthakar_09
+*/
 #include <bits/stdc++.h>
 using namespace std;
 #define fastio ios_base::sync_with_stdio(false);cin.tie(NULL);
@@ -7,16 +9,18 @@ using namespace std;
 #define all(x) (x).begin(),(x).end()
 #define sz(a) (int)(a).size()
 
-void print_1d_array(vector<int>& arr) {
+void print_1d_array(vector<int>&arr){
     int n = arr.size();
-    cout << "[";
-    for (int i = 0; i < n; i++) {
-        cout << arr[i] << " ";
+    cout<<"[";
+    for(int i = 0;i<n;i++){
+        cout<<arr[i]<<" ";
     }
-    cout << "]" << endl;
+    cout<<endl;
 }
 
-/* Happy Coding */
+/*
+    Happy Coding
+*/
 void solve() {
     cout << "Hello" << endl;
 }
@@ -28,21 +32,23 @@ int main() {
     freopen("output.txt", "w", stdout);
 #endif
     fastio;
-
-    int N;
+    
     string S;
-    cin >> N >> S;
-
-    if (N >= 3) {
-        string ans = S.substr(N - 3, 3);
-        if (ans == "tea") {
-            cout << "Yes";
-        } else {
-            cout << "No";
+    cin >> S;
+    int n = S.size();
+    vector<int> pos;
+    for (int i = 0; i < n; ++i)
+        if (S[i] == 't') pos.push_back(i);
+    double max_rate = 0.0;
+    int m = pos.size();
+    for (int a = 0; a < m; ++a) {
+        for (int b = a + 2; b < m; ++b) {
+            int len = pos[b] - pos[a] + 1;
+            int cnt_t = b - a + 1;
+            double rate = double(cnt_t - 2) / double(len - 2);
+            max_rate = max(max_rate, rate);
         }
-    } else {
-        cout << "No";
     }
-
+    cout << fixed << setprecision(17) << max_rate << '\n';
     return 0;
 }
