@@ -8,16 +8,6 @@ using namespace std;
 #define ss second
 #define all(x) (x).begin(),(x).end()
 #define sz(a) (int)(a).size()
-
-void print_1d_array(vector<int>&arr){
-    int n = arr.size();
-    cout<<"[";
-    for(int i = 0;i<n;i++){
-        cout<<arr[i]<<" ";
-    }
-    cout<<endl;
-}
-
 class ArrayStack {
 public:
     int *arr;
@@ -62,40 +52,22 @@ public:
         return this->top == -1;
     }
 };
+
+
+void print_1d_array(vector<int>&arr){
+    int n = arr.size();
+    cout<<"[";
+    for(int i = 0;i<n;i++){
+        cout<<arr[i]<<" ";
+    }
+    cout<<endl;
+}
+
 /*
     Happy Coding
 */
-class Solution {
-public:
-    vector<vector<int>> reverseSubmatrix(vector<vector<int>>& grid, int x, int y, int k) {
-        int m = grid.size();
-        int n = grid[0].size();
-
-        int size = min({k, m - x, n - y});
-        int t = x, b = x + size - 1;
-
-        for (int col = 0; col < size; col++) {
-            int r1 = t, r2 = b;
-            while (r1 < r2) {
-                swap(grid[r1][y + col], grid[r2][y + col]);
-                r1++;
-                r2--;
-            }
-        }
-
-        return grid;
-    }
-};
 void solve() {
-    string input;
-    cin>>input;
-    int size = input.length();
-    string output;
-    ArrayStack st(100);
-
-    for(int i = 0;i<size;i++){
-        
-    }
+    cout << "Hello" << endl;
 }
 
 int main() {
@@ -106,10 +78,15 @@ int main() {
 #endif
     fastio;
     
-    int a = 1;
-    // cin>>a;
-    while(a--) {
-        solve();
-    }
+    ArrayStack st(5);
+    st.push(10);
+    st.push(20);
+    cout << "Top: " << st.topElement() << endl;
+    st.push(30);
+    cout << "Pop: " << st.pop() << endl;
+    cout << "Top after pop: " << st.topElement() << endl;
+
+    if (st.isEmpty()) cout << "Stack is empty\n";
+    else cout << "Stack is not empty\n";
     return 0;
 }
