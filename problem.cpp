@@ -9,15 +9,6 @@ using namespace std;
 #define all(x) (x).begin(),(x).end()
 #define sz(a) (int)(a).size()
 
-void print_1d_array(vector<int>&arr){
-    int n = arr.size();
-    cout<<"[";
-    for(int i = 0;i<n;i++){
-        cout<<arr[i]<<" ";
-    }
-    cout<<endl;
-}
-
 class ArrayStack {
 public:
     string *arr;
@@ -57,39 +48,65 @@ public:
     }
 };
 
-void convert_postfix_to_infix(string &input, string &output) {
+int precedence(char op) {
+    if (op == '+' || op == '-') return 1;
+    if (op == '*' || op == '/') return 2;
+    if (op == '^') return 3;
+    return 0;
+}
+
+bool isOperator(char c) {
+    return (c == '+' || c == '-' || c == '*' || c == '/' || c == '^');
+}
+
+void convert_infix_to_prefix(string &input, string &output) {
+    reverse(input.begin(), input.end());
+    for (char &c : input) {
+        if (c == '(') c = ')';
+        else if (c == ')') c = '(';
+    }
+
     int n = input.length();
     ArrayStack st(n);
-    int i = 0;
+    string postfix = "";
 
-    while (i < n) {
+    for (int i = 0; i < n; i++) {
         char c = input[i];
-        if( (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')){
-            string s(1, c);
-            st.push(s);
+        if (isalnum(c)) {
+            postfix.push_back(c);
         }
-        else{
-            //for operator
-            string str1 = st.pop();
-            string str2 = st.pop();
-            string new_str = '(' + str2 + string(1, c) + str1 + ')';
-            // cout<<i<<" "<<new_str<<endl;
-            st.push(new_str);
+        else if (c == '(') {
+            st.push("(");
         }
-        i++;
+        else if (c == ')') {
+            while (!st.isEmpty() && st.topElement() != "(") {
+                postfix += st.pop();
+            }
+            if (!st.isEmpty()) st.pop(); // pop '('
+        }
+        else if (isOperator(c)) {
+            while (!st.isEmpty() && precedence(st.topElement()[0]) > precedence(c)) {
+                postfix += st.pop();
+            }
+            st.push(string(1, c));
+        }
     }
-    output = st.topElement();
+
+    while (!st.isEmpty()) {
+        postfix += st.pop();
+    }
+
+    reverse(postfix.begin(), postfix.end());
+    output = postfix;
 }
 
 void solve() {
     string output = "";
     string input = "";
     cin >> input;
-    if(input == ""){
-        return;
-    }
-    convert_postfix_to_infix(input, output);
-    cout << output << endl;
+    if (input == "") return;
+    convert_infix_to_prefix(input, output);
+    cout << output << "\n";
 }
 
 int main() {
