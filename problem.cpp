@@ -57,7 +57,7 @@ public:
     }
 };
 
-void convert_prefix_to_infix(string &input, string &output) {
+void convert_prefix_to_postfix(string &input, string &output) {
     int n = input.length();
     ArrayStack st(n);
     int i = n - 1;
@@ -72,7 +72,7 @@ void convert_prefix_to_infix(string &input, string &output) {
             //for operator
             string str1 = st.pop();
             string str2 = st.pop();
-            string new_str = '(' + str1 + string(1, c) + str2 + ')';
+            string new_str = str1 + str2 + string(1, c);
             // cout<<i<<" "<<new_str<<endl;
             st.push(new_str);
         }
@@ -88,7 +88,7 @@ void solve() {
     if(input == ""){
         return;
     }
-    convert_prefix_to_infix(input, output);
+    convert_prefix_to_postfix(input, output);
     cout << output << endl;
 }
 
