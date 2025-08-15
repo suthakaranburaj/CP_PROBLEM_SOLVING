@@ -18,22 +18,22 @@ public:
         this->size = size;
         this->arr = new int[size];
         this->top = -1;
-        cout << "Stack Created Successfully!" << endl;
+        // cout << "Stack Created Successfully!" << endl;
     }
 
     void push(int x) {
         if (this->top == this->size - 1) { 
-            cout << "Stack is full" << endl;
+            // cout << "Stack is full" << endl;
         } else {
             this->top++;
             arr[this->top] = x;
-            cout << x << " Inserted Successfully!" << endl;
+            // cout << x << " Inserted Successfully!" << endl;
         }
     }
 
     int pop() {
         if (this->top == -1) {
-            cout << "No data in stack!" << endl;
+            // cout << "No data in stack!" << endl;
             return -1;
         } else {
             return this->arr[this->top--];
@@ -42,7 +42,7 @@ public:
 
     int topElement() {
         if (this->top == -1) {
-            cout << "No data in stack!" << endl;
+            // cout << "No data in stack!" << endl;
             return -1;
         }
         return this->arr[this->top];
