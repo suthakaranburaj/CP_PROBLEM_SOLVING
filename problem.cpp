@@ -20,40 +20,34 @@ void print_1d_array(vector<int>&arr){
 
 class ArrayStack {
 public:
-    int *arr;
+    string *arr;
     int size;
     int top;
     
     ArrayStack(int size) {
         this->size = size;
-        this->arr = new int[size];
+        this->arr = new string[size];
         this->top = -1;
-        cout << "Stack Created Successfully!" << endl;
     }
 
-    void push(int x) {
-        if (this->top == this->size - 1) { 
-            cout << "Stack is full" << endl;
-        } else {
+    void push(string x) {
+        if (this->top != this->size - 1) {
             this->top++;
             arr[this->top] = x;
-            cout << x << " Inserted Successfully!" << endl;
         }
     }
 
-    int pop() {
+    string pop() {
         if (this->top == -1) {
-            cout << "No data in stack!" << endl;
-            return -1;
+            return "";
         } else {
             return this->arr[this->top--];
         }
     }
 
-    int topElement() {
+    string topElement() {
         if (this->top == -1) {
-            cout << "No data in stack!" << endl;
-            return -1;
+            return "";
         }
         return this->arr[this->top];
     }
@@ -62,40 +56,40 @@ public:
         return this->top == -1;
     }
 };
-/*
-    Happy Coding
-*/
-class Solution {
-public:
-    vector<vector<int>> reverseSubmatrix(vector<vector<int>>& grid, int x, int y, int k) {
-        int m = grid.size();
-        int n = grid[0].size();
 
-        int size = min({k, m - x, n - y});
-        int t = x, b = x + size - 1;
+void convert_prefix_to_infix(string &input, string &output) {
+    int n = input.length();
+    ArrayStack st(n);
+    int i = n - 1;
 
-        for (int col = 0; col < size; col++) {
-            int r1 = t, r2 = b;
-            while (r1 < r2) {
-                swap(grid[r1][y + col], grid[r2][y + col]);
-                r1++;
-                r2--;
-            }
+    while (i >= 0) {
+        char c = input[i];
+        if( (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')){
+            string s(1, c);
+            st.push(s);
         }
-
-        return grid;
+        else{
+            //for operator
+            string str1 = st.pop();
+            string str2 = st.pop();
+            string new_str = '(' + str1 + string(1, c) + str2 + ')';
+            // cout<<i<<" "<<new_str<<endl;
+            st.push(new_str);
+        }
+        i--;
     }
-};
+    output = st.topElement();
+}
+
 void solve() {
-    string input;
-    cin>>input;
-    int size = input.length();
-    string output;
-    ArrayStack st(100);
-
-    for(int i = 0;i<size;i++){
-        
+    string output = "";
+    string input = "";
+    cin >> input;
+    if(input == ""){
+        return;
     }
+    convert_prefix_to_infix(input, output);
+    cout << output << endl;
 }
 
 int main() {
@@ -106,9 +100,9 @@ int main() {
 #endif
     fastio;
     
-    int a = 1;
-    // cin>>a;
-    while(a--) {
+    int a;
+    cin >> a;
+    while (a--) {
         solve();
     }
     return 0;

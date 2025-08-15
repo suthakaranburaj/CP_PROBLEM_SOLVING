@@ -8,16 +8,6 @@ using namespace std;
 #define ss second
 #define all(x) (x).begin(),(x).end()
 #define sz(a) (int)(a).size()
-
-void print_1d_array(vector<int>&arr){
-    int n = arr.size();
-    cout<<"[";
-    for(int i = 0;i<n;i++){
-        cout<<arr[i]<<" ";
-    }
-    cout<<endl;
-}
-
 class ArrayStack {
 public:
     int *arr;
@@ -28,17 +18,22 @@ public:
         this->size = size;
         this->arr = new int[size];
         this->top = -1;
+        // cout << "Stack Created Successfully!" << endl;
     }
 
     void push(int x) {
-        if (this->top != this->size - 1) {
+        if (this->top == this->size - 1) { 
+            // cout << "Stack is full" << endl;
+        } else {
             this->top++;
             arr[this->top] = x;
+            // cout << x << " Inserted Successfully!" << endl;
         }
     }
 
     int pop() {
         if (this->top == -1) {
+            // cout << "No data in stack!" << endl;
             return -1;
         } else {
             return this->arr[this->top--];
@@ -47,6 +42,7 @@ public:
 
     int topElement() {
         if (this->top == -1) {
+            // cout << "No data in stack!" << endl;
             return -1;
         }
         return this->arr[this->top];
@@ -57,65 +53,19 @@ public:
     }
 };
 
-bool check_operator_precedence(char op1, char op2) {
-    auto precedence = [](char op) {
-        if (op == '^') return 3;
-        if (op == '*' || op == '/') return 2;
-        if (op == '+' || op == '-') return 1;
-        return 0;
-    };
-    if (precedence(op1) == precedence(op2)) {
-        if (op1 == '^') return false;
-        else return true;
+void print_1d_array(vector<int>&arr){
+    int n = arr.size();
+    cout<<"[";
+    for(int i = 0;i<n;i++){
+        cout<<arr[i]<<" ";
     }
-    return precedence(op1) > precedence(op2);
+    cout<<endl;
 }
-
-void convert_infix_to_postfix(string &input, string &output) {
-    int n = input.length();
-    ArrayStack st(n);
-    int i = 0;
-
-    while (i < n) {
-        if ((input[i] >= 'A' && input[i] <= 'Z') ||
-            (input[i] >= 'a' && input[i] <= 'z') ||
-            (input[i] >= '0' && input[i] <= '9')) {
-            output.push_back(input[i]);
-        }
-        else if (input[i] == '(') {
-            st.push(input[i]);
-        }
-        else if (input[i] == ')') {
-            while (!st.isEmpty() && st.topElement() != '(') {
-                output.push_back(st.topElement());
-                st.pop();
-            }
-            if (!st.isEmpty() && st.topElement() == '(')
-                st.pop();
-        }
-        else {
-            while (!st.isEmpty() && st.topElement() != '(' &&
-                   check_operator_precedence(st.topElement(), input[i])) {
-                output.push_back(st.topElement());
-                st.pop();
-            }
-            st.push(input[i]);
-        }
-        i++;
-    }
-
-    while (!st.isEmpty()) {
-        output.push_back(st.topElement());
-        st.pop();
-    }
-}
-
+/*
+    Happy Coding
+*/
 void solve() {
-    string output = "";
-    string input = "";
-    cin >> input;
-    convert_infix_to_postfix(input, output);
-    cout << output << endl;
+
 }
 
 int main() {
@@ -126,9 +76,9 @@ int main() {
 #endif
     fastio;
     
-    int a;
-    cin >> a;
-    while (a--) {
+    int a = 1;
+    // cin>>a;
+    while(a--) {
         solve();
     }
     return 0;
