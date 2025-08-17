@@ -8,24 +8,6 @@ using namespace std;
 #define ss second
 #define all(x) (x).begin(),(x).end()
 #define sz(a) (int)(a).size()
-class Solution {
-public:
-    vector<int> nextGreaterElements(vector<int>& nums) {
-        int n = nums.size();
-        vector<int> ans(n, -1);
-        stack<int> st;         
-
-        for (int i = 0; i < 2 * n; i++) {
-            int num = nums[i % n];
-            while (!st.empty() && nums[st.top()] < num) {
-                ans[st.top()] = num;
-                st.pop();
-            }
-            if (i < n) st.push(i);
-        }
-        return ans;
-    }
-};
 
 class ArrayStack {
 public:
@@ -65,66 +47,41 @@ public:
         return this->top == -1;
     }
 };
+class Solution {
+public:
+    vector<int> nextSmalllElements(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> ans(n, -1);
+        stack<int> st;         
 
-int precedence(char op) {
-    if (op == '+' || op == '-') return 1;
-    if (op == '*' || op == '/') return 2;
-    if (op == '^') return 3;
-    return 0;
-}
-
-bool isOperator(char c) {
-    return (c == '+' || c == '-' || c == '*' || c == '/' || c == '^');
-}
-
-void convert_infix_to_prefix(string &input, string &output) {
-    reverse(input.begin(), input.end());
-    for (char &c : input) {
-        if (c == '(') c = ')';
-        else if (c == ')') c = '(';
-    }
-
-    int n = input.length();
-    ArrayStack st(n);
-    string postfix = "";
-
-    for (int i = 0; i < n; i++) {
-        char c = input[i];
-        if (isalnum(c)) {
-            postfix.push_back(c);
-        }
-        else if (c == '(') {
-            st.push("(");
-        }
-        else if (c == ')') {
-            while (!st.isEmpty() && st.topElement() != "(") {
-                postfix += st.pop();
+        for (int i = 0; i < n; i++) {
+            int num = nums[i % n];
+            while (!st.empty() && nums[st.top()] > num) {
+                ans[st.top()] = num;
+                st.pop();
             }
-            if (!st.isEmpty()) st.pop(); // pop '('
+            if (i < n) st.push(i);
         }
-        else if (isOperator(c)) {
-            while (!st.isEmpty() && precedence(st.topElement()[0]) > precedence(c)) {
-                postfix += st.pop();
-            }
-            st.push(string(1, c));
-        }
+        return ans;
     }
+};
 
-    while (!st.isEmpty()) {
-        postfix += st.pop();
+void print_1d_array(vector<int>&arr){
+    for(int a : arr){
+        cout<<a<<" ";
     }
-
-    reverse(postfix.begin(), postfix.end());
-    output = postfix;
 }
-
 void solve() {
-    string output = "";
-    string input = "";
-    cin >> input;
-    if (input == "") return;
-    convert_infix_to_prefix(input, output);
-    cout << output << "\n";
+    int n;
+    cin>>n;
+    vector<int>input(n);
+    for (int i = 0; i < n; i++) {
+        cin >> input[i];
+    }
+
+    Solution sol;
+    vector<int> output = sol.nextSmalllElements(input);
+    print_1d_array(output);
 }
 
 int main() {
