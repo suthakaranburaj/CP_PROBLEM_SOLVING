@@ -49,14 +49,14 @@ public:
 };
 class Solution {
 public:
-    vector<int> nextSmalllElements(vector<int>& nums) {
+    vector<int> nextGreatestElements(vector<int>& nums) {
         int n = nums.size();
         vector<int> ans(n, -1);
         stack<int> st;         
 
         for (int i = 0; i < n; i++) {
             int num = nums[i % n];
-            while (!st.empty() && nums[st.top()] > num) {
+            while (!st.empty() && nums[st.top()] < num) {
                 ans[st.top()] = num;
                 st.pop();
             }
@@ -78,9 +78,8 @@ void solve() {
     for (int i = 0; i < n; i++) {
         cin >> input[i];
     }
-
     Solution sol;
-    vector<int> output = sol.nextSmalllElements(input);
+    vector<int> output = sol.nextGreatestElements(input);
     print_1d_array(output);
 }
 
