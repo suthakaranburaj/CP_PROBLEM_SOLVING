@@ -65,22 +65,14 @@ void print_1d_array(vector<int>&arr){
     Happy Coding
 */
 void solve() {
-    int n;
-    cin>>n;
-    vector<int> a(n);
-    for (int i = 0; i < n; i++) cin >> a[i];
-
-    int ans = 1;
-    int last_element = a[0] % 2;
-
-    for(int i = 0;i<n;i++){
-        int cur_element = a[i]%2;
-        if(last_element != cur_element){
-            ans++;
-            last_element= cur_element;
-        }
+    int N;
+    cin >> N;
+    string p = "abc";
+    string result;
+    for (int i = 0; i < N; i++) {
+        result += p[i % 3];
     }
-    cout<<ans<<endl;
+    cout << result << "\n";
 }
 
 int main() {
@@ -92,7 +84,7 @@ int main() {
     fastio;
     
     int a = 1;
-    cin>>a;
+    // cin>>a;
     while(a--) {
         solve();
     }
