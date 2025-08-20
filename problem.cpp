@@ -67,25 +67,54 @@ void print_1d_array(vector<int>&arr){
 /*
     Happy Coding
 */
-void solve() {
-    int n;
-    cin >> n;
-    int countOnes = 0;
-    bool hasBig = false;
-    for (int i = 0; i < n; i++) {
-        int a;
-        cin >> a;
-        if (a == 1) {
-            countOnes++;
+
+typedef long long ll;
+
+ll g(ll M) {
+    if (M == 0) return 0;
+    ll res = 0;
+    while (M > 0) {
+        int b = 0;
+        while ((1LL << (b+1)) - 1 <= M) 
+            b++;
+        ll comp = (1LL << b) - 1;
+        if (M == comp) {
+            res += b * (1LL << (b-1));
+            break;
         } else {
-            hasBig = true;
+            res += b * (1LL << (b-1)) + (1LL << b);
+            M -= (1LL << b);
         }
     }
-    if (hasBig) {
-        cout << inv2 << endl;
+    return res;
+}
+
+ll f(ll N) {
+    if (N == 1) return 0;
+    if ((N & (N+1)) == 0) {
+        int b = 0;
+        ll t = N+1;
+        while (t > 1) {
+            b++;
+            t /= 2;
+        }
+        return b * (1LL << (b-1)) - 1;
     } else {
-        cout << (countOnes % 2 ? 1 : 0) << endl;
+        int b = 0;
+        while ((1LL << (b+1)) <= N) 
+            b++;
+        ll M = 1LL << b;
+        ll R = N - M;
+        ll c = (N == M) ? M+1 : M;
+        ll cost_L = b * (1LL << (b-1)) - 1;
+        return cost_L + g(R) + c;
     }
+}
+
+void solve() {
+    ll N;
+    cin>>N;
+    cout<<f(N)<<endl;
 }
 
 int main() {
