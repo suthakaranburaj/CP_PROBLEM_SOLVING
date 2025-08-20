@@ -8,37 +8,42 @@ using namespace std;
 #define ss second
 #define all(x) (x).begin(),(x).end()
 #define sz(a) (int)(a).size()
-
 class ArrayStack {
 public:
-    string *arr;
+    int *arr;
     int size;
     int top;
     
     ArrayStack(int size) {
         this->size = size;
-        this->arr = new string[size];
+        this->arr = new int[size];
         this->top = -1;
+        // cout << "Stack Created Successfully!" << endl;
     }
 
-    void push(string x) {
-        if (this->top != this->size - 1) {
+    void push(int x) {
+        if (this->top == this->size - 1) { 
+            // cout << "Stack is full" << endl;
+        } else {
             this->top++;
             arr[this->top] = x;
+            // cout << x << " Inserted Successfully!" << endl;
         }
     }
 
-    string pop() {
+    int pop() {
         if (this->top == -1) {
-            return "";
+            // cout << "No data in stack!" << endl;
+            return -1;
         } else {
             return this->arr[this->top--];
         }
     }
 
-    string topElement() {
+    int topElement() {
         if (this->top == -1) {
-            return "";
+            // cout << "No data in stack!" << endl;
+            return -1;
         }
         return this->arr[this->top];
     }
@@ -47,40 +52,35 @@ public:
         return this->top == -1;
     }
 };
-class Solution {
-public:
-    vector<int> nextGreatestElements(vector<int>& nums) {
-        int n = nums.size();
-        vector<int> ans(n, -1);
-        stack<int> st;         
-
-        for (int i = 0; i < n; i++) {
-            int num = nums[i % n];
-            while (!st.empty() && nums[st.top()] < num) {
-                ans[st.top()] = num;
-                st.pop();
-            }
-            if (i < n) st.push(i);
-        }
-        return ans;
-    }
-};
 
 void print_1d_array(vector<int>&arr){
-    for(int a : arr){
-        cout<<a<<" ";
+    int n = arr.size();
+    cout<<"[";
+    for(int i = 0;i<n;i++){
+        cout<<arr[i]<<" ";
     }
+    cout<<endl;
 }
+/*
+    Happy Coding
+*/
 void solve() {
     int n;
     cin>>n;
-    vector<int>input(n);
-    for (int i = 0; i < n; i++) {
-        cin >> input[i];
+    vector<int> a(n);
+    for (int i = 0; i < n; i++) cin >> a[i];
+
+    int ans = 1;
+    int last_element = a[0] % 2;
+
+    for(int i = 0;i<n;i++){
+        int cur_element = a[i]%2;
+        if(last_element != cur_element){
+            ans++;
+            last_element= cur_element;
+        }
     }
-    Solution sol;
-    vector<int> output = sol.nextGreatestElements(input);
-    print_1d_array(output);
+    cout<<ans<<endl;
 }
 
 int main() {
@@ -91,9 +91,9 @@ int main() {
 #endif
     fastio;
     
-    int a;
-    cin >> a;
-    while (a--) {
+    int a = 1;
+    cin>>a;
+    while(a--) {
         solve();
     }
     return 0;
