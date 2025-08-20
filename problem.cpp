@@ -8,6 +8,9 @@ using namespace std;
 #define ss second
 #define all(x) (x).begin(),(x).end()
 #define sz(a) (int)(a).size()
+
+const int MOD = 998244353;
+const long long inv2 = 499122177;
 class ArrayStack {
 public:
     int *arr;
@@ -65,14 +68,24 @@ void print_1d_array(vector<int>&arr){
     Happy Coding
 */
 void solve() {
-    int N;
-    cin >> N;
-    string p = "abc";
-    string result;
-    for (int i = 0; i < N; i++) {
-        result += p[i % 3];
+    int n;
+    cin >> n;
+    int countOnes = 0;
+    bool hasBig = false;
+    for (int i = 0; i < n; i++) {
+        int a;
+        cin >> a;
+        if (a == 1) {
+            countOnes++;
+        } else {
+            hasBig = true;
+        }
     }
-    cout << result << "\n";
+    if (hasBig) {
+        cout << inv2 << endl;
+    } else {
+        cout << (countOnes % 2 ? 1 : 0) << endl;
+    }
 }
 
 int main() {
@@ -84,7 +97,7 @@ int main() {
     fastio;
     
     int a = 1;
-    // cin>>a;
+    cin>>a;
     while(a--) {
         solve();
     }
