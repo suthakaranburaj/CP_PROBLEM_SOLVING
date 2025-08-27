@@ -77,7 +77,7 @@ int main() {
     fastio;
     
     int a = 1;
-    // cin>>a;
+    cin>>a;
     while(a--) {
         solve();
     }
