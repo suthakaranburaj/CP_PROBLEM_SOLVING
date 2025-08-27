@@ -65,19 +65,32 @@ void print_1d_array(vector<int>&arr){
     Happy Coding
 */
 void solve() {
-    int a,b;
-    cin>>a>>b;
-    int ans = 0;
-    for(int i = 0;i<a;i++){
-        if(b>=2){
-            ans+=3;
-            b-=2;
-        }
-        else{
-            break;
+
+    int N;
+    string S;
+    cin >> N >> S;
+
+    bool possible = true;
+    int count = 0;
+
+    for (int i = 0; i < N; i++) {
+        if (S[i] == '1') {
+            count++;
+        } else {
+            if (count > 0 && count < 3) {
+                possible = false;
+                break;
+            }
+            count = 0; // reset
         }
     }
-    cout<<ans<<endl;
+
+    // check last group of 1s
+    if (count > 0 && count < 3) {
+        possible = false;
+    }
+
+    cout << (possible ? "Yes" : "No") << "\n";
 }
 
 int main() {
