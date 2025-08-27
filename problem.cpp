@@ -67,30 +67,27 @@ void print_1d_array(vector<int>&arr){
 void solve() {
 
     int N;
-    string S;
-    cin >> N >> S;
+    string A;
+    cin >> N >> A;
+    vector<int> prefix(N + 1, 0);
+    for (int i = 1; i <= N; i++) {
+        prefix[i] = prefix[i-1] + (A[i-1] - '0');
+    }
+    long long ans = 0;
+    ans += prefix[1] - prefix[0];
 
-    bool possible = true;
-    int count = 0;
-
-    for (int i = 0; i < N; i++) {
-        if (S[i] == '1') {
-            count++;
-        } else {
-            if (count > 0 && count < 3) {
-                possible = false;
-                break;
-            }
-            count = 0; // reset
+    int i = 1, j = 1;
+    while (i < N || j < N) {
+        if (j < N) { 
+            j++;
+            ans += prefix[j] - prefix[i-1];
+        }
+        if (i < N) {
+            i++;
+            ans += prefix[j] - prefix[i-1];
         }
     }
-
-    // check last group of 1s
-    if (count > 0 && count < 3) {
-        possible = false;
-    }
-
-    cout << (possible ? "Yes" : "No") << "\n";
+    cout << ans << "\n";
 }
 
 int main() {
