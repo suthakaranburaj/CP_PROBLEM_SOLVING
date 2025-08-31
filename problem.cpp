@@ -124,6 +124,7 @@ public:
     }
 };
 
+
 void print_1d_array(vector<int>&arr){
     int n = arr.size();
     cout<<"[";
@@ -135,8 +136,28 @@ void print_1d_array(vector<int>&arr){
 /*
     Happy Coding
 */
-void solve() {
 
+void solve() {
+    string s;
+    cin >> s;
+
+    unordered_map<char,int> freq;
+    int start = 0; 
+    int ans = 0;
+
+    for (int end = 0; end < s.size(); end++) {
+        char c = s[end];
+        freq[c]++;
+
+        while (freq[c] > 1) {
+            freq[s[start]]--;
+            start++;
+        }
+
+        ans = max(ans, end - start + 1);
+    }
+
+    cout << ans << endl;
 }
 
 int main() {
