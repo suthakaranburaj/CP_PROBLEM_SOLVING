@@ -53,6 +53,77 @@ public:
     }
 };
 
+class ArrayQueue {
+public:
+    int *arr;
+    int size;
+    int rear;
+    int front;
+
+    ArrayQueue(int size) {
+        this->size = size;
+        this->arr = new int[size];
+        this->rear = -1;
+        this->front = -1;
+        cout << "Queue Created Successfully!" << endl;
+    }
+
+    void push(int x) {
+        if (this->rear == size - 1) { // FIXED
+            cout << "Queue is full!" << endl;
+            return;
+        } else if (this->rear == -1 && this->front == -1) {
+            this->rear = this->front = 0;
+        } else {
+            this->rear++;
+        }
+        arr[this->rear] = x;
+        cout << "Data added successfully!" << endl;
+    }
+
+    int pop() {
+        if (this->front == -1 && this->rear == -1) {
+            cout << "Queue is empty" << endl;
+            return -1;
+        } else if (this->front == this->rear) {
+            int val = arr[front];
+            arr[front] = -1;
+            this->front = -1;
+            this->rear = -1;
+            cout << "Data popped successfully!" << endl;
+            return val;
+        } else {
+            int val = arr[front];
+            arr[front] = -1;
+            this->front++;
+            cout << "Data popped successfully!" << endl;
+            return val;
+        }
+    }
+
+    int rearElement() {
+        if (isEmpty()) {
+            cout << "Queue is empty" << endl;
+            return -1;
+        }
+        return this->arr[this->rear];
+    }
+
+    bool isEmpty() {
+        return this->rear == -1 && this->front == -1;
+    }
+
+    void print_queue() {
+        if (isEmpty()) {
+            cout << "Queue is empty!" << endl;
+            return;
+        }
+        for (int i = this->front; i <= this->rear; i++) {
+            cout << "Element " << i << " = " << this->arr[i] << endl;
+        }
+    }
+};
+
 void print_1d_array(vector<int>&arr){
     int n = arr.size();
     cout<<"[";
@@ -66,28 +137,6 @@ void print_1d_array(vector<int>&arr){
 */
 void solve() {
 
-    int N;
-    string A;
-    cin >> N >> A;
-    vector<int> prefix(N + 1, 0);
-    for (int i = 1; i <= N; i++) {
-        prefix[i] = prefix[i-1] + (A[i-1] - '0');
-    }
-    long long ans = 0;
-    ans += prefix[1] - prefix[0];
-
-    int i = 1, j = 1;
-    while (i < N || j < N) {
-        if (j < N) { 
-            j++;
-            ans += prefix[j] - prefix[i-1];
-        }
-        if (i < N) {
-            i++;
-            ans += prefix[j] - prefix[i-1];
-        }
-    }
-    cout << ans << "\n";
 }
 
 int main() {
