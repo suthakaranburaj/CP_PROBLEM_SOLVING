@@ -136,9 +136,18 @@ void print_1d_array(vector<int>&arr){
 /*
     Happy Coding
 */
-
 void solve() {
-    
+    int x,y;
+    cin>>x>>y;
+    int maxx = 12 + (y - 1) * 2;
+    int minn = y * 2;
+    int temp = 50 - x;
+    if(maxx >= temp  && temp >= minn){
+        cout<<"Yes"<<endl;
+    }
+    else{
+        cout<<"No"<<endl;
+    }
 }
 
 int main() {
@@ -150,13 +159,9 @@ int main() {
     fastio;
     
     int a = 1;
-    int x,h;
-	cin>>x>>h;
-	int ans = (x - 4) * 24 + h;
-	cout<<ans<<endl;
-    // cin>>a;
-    // while(a--) {
-    //     // solve();
-    // }
+    cin>>a;
+    while(a--) {
+        solve();
+    }
     return 0;
 }
