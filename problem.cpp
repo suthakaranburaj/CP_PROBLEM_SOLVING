@@ -138,26 +138,7 @@ void print_1d_array(vector<int>&arr){
 */
 
 void solve() {
-    string s;
-    cin >> s;
-
-    unordered_map<char,int> freq;
-    int start = 0; 
-    int ans = 0;
-
-    for (int end = 0; end < s.size(); end++) {
-        char c = s[end];
-        freq[c]++;
-
-        while (freq[c] > 1) {
-            freq[s[start]]--;
-            start++;
-        }
-
-        ans = max(ans, end - start + 1);
-    }
-
-    cout << ans << endl;
+    
 }
 
 int main() {
@@ -169,9 +150,13 @@ int main() {
     fastio;
     
     int a = 1;
-    cin>>a;
-    while(a--) {
-        solve();
-    }
+    int x,h;
+	cin>>x>>h;
+	int ans = (x - 4) * 24 + h;
+	cout<<ans<<endl;
+    // cin>>a;
+    // while(a--) {
+    //     // solve();
+    // }
     return 0;
 }
