@@ -137,17 +137,25 @@ void print_1d_array(vector<int>&arr){
     Happy Coding
 */
 void solve() {
-    int x,y;
-    cin>>x>>y;
-    int maxx = 12 + (y - 1) * 2;
-    int minn = y * 2;
-    int temp = 50 - x;
-    if(maxx >= temp  && temp >= minn){
-        cout<<"Yes"<<endl;
+    int n;
+    cin>>n;
+    int n_of_3 = 0;
+    while(n >= 5){
+        n_of_3++;
+        n = n - 3;
     }
-    else{
-        cout<<"No"<<endl;
+    int n_of_2 = 0;
+    if(n == 3){
+        int ans = (n_of_3 + 1 ) * 5 + n_of_2 * 4;
+        cout<<ans<<endl;
+        return;
     }
+    while(n > 0){
+        n_of_2++;
+        n = n -2;
+    }
+    int ans = n_of_3 * 5 + n_of_2 * 4;
+    cout<<ans<<endl;
 }
 
 int main() {
