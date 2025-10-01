@@ -62,21 +62,8 @@ void input_1d_array_leetcode(vector<int>&arr,int n){
 /*
     Happy Coding
 */
-int max_entertainment(int n){
-    return (n*(n-1))/2;
-}
-
-int min_entertainment(int n){
-
-}
 void solve() {
-    // vector<int>arr;
-    int n;
-    cin>>n;
-    // input_1d_array(arr,n);
-    int max_ent_int = max_entertainment(n-1);
-    int min_ent_int = n-2;
-    cout<<min_ent_int<<" "<<max_ent_int<<endl;;
+    
 }
 
 int main() {
@@ -90,7 +77,21 @@ int main() {
     int a = 1;
     cin>>a;
     while(a--) {
-        solve();
+        int N;
+        cin >> N;
+        if (N % 2 == 1) {
+            for (int i = 0; i < N; i++) {
+                cout << (2 * i % N) + 1 << " ";
+            }
+        } else {
+            for (int i = 0; i < N / 2; i++) {
+                cout << (2 * i + 2) << " ";
+            }
+            for (int i = 0; i < N / 2; i++) {
+                cout << (2 * i + 1) << " ";
+            }
+        }
+        cout << endl;
     }
     return 0;
 }
