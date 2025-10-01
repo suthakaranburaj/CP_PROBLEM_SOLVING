@@ -18,7 +18,7 @@ void swap(int* x, int* y) {
 
 void print_1d_array(vector<int>&arr){
     int n = arr.size();
-    cout<<"[";
+    // cout<<"[";
     for(int i = 0;i<n;i++){
         cout<<arr[i]<<" ";
     }
@@ -67,32 +67,34 @@ void input_1d_array_leetcode(vector<int>&arr,int n){
 /*
     Happy Coding
 */
+void heapify(int index,int n,vector<int>&arr){
+    int lc = 2*index+1;
+    int rc = 2*index+2;
 
-bool check_minHeap(vector<int>&arr,int &n){
-    for(int i = 0; i<n ; i++){
-        int lc = 2*i+1;
-        int rc = 2*i+2;
-
-        if(lc >= n || rc >= n){
-            continue;
-        }
-
-        if(lc < n && arr[lc] < arr[i]) return false;
-        if(rc < n && arr[rc] < arr[i]) return false;
+    int smallest = index;
+    if (lc < n && arr[smallest] < arr[lc]) {
+        smallest = lc;
     }
-    return true;
+    if (rc < n && arr[smallest] < arr[rc]) {
+        smallest = rc;
+    }
+
+    if (smallest != index) {
+        swap(arr[index], arr[smallest]);
+        heapify(smallest,n,arr);
+    }
+}
+void convert_min_to_max_heap(vector<int>&arr, int n){
+    for(int i = n/2 - 1;i>=0 ; i--){
+        heapify(i,n,arr);
+    }
 }
 void solve() {
     vector<int>arr;
     int n;
     input_1d_array(arr,n);
-    bool ans = check_minHeap(arr,n);
-    if(ans){
-        cout<<"True"<<endl;
-    }
-    else{
-        cout<<"False"<<endl;
-    }
+    convert_min_to_max_heap(arr,n);
+    print_1d_array(arr);
 }
 
 int main() {
