@@ -65,7 +65,7 @@ void input_1d_array_leetcode(vector<int>&arr,int n){
 void solve() {
     vector<int>arr;
     int n;
-    input_1d_array_leetcode(arr,n);
+    input_1d_array(arr,n);
     
 }
 
