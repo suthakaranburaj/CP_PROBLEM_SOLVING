@@ -25,8 +25,8 @@ void print_1d_array(vector<int>&arr){
     cout<<endl;
 }
 
-void input_1d_array(vector<int>&arr,int &n,int &k){
-    cin>>n>>k;
+void input_1d_array(vector<int>&arr,int n){
+    cin>>n;
     arr.resize(n);
     for(int i = 0 ;i<n; i++){
         cin>>arr[i];
@@ -63,20 +63,24 @@ void input_1d_array_leetcode(vector<int>&arr,int n){
     Happy Coding
 */
 void solve() {
-    vector<int>arr;
-    int n;
-    int k;
-    input_1d_array(arr,n,k);
+    int N;
+    cin >> N;
+    int cnt1 = 0, cnt2 = 0, cnt3 = 0;
 
-    sort(arr.begin(), arr.end()); 
-    reverse(arr.begin(), arr.end()); 
-    int ans = 0;
-    int i = 0;
-    while(k--){
-        ans += arr[i];
-        i++;
+    for (int i = 0; i < N; i++) {
+        int x;
+        cin >> x;
+        if (x == 1) cnt1++;
+        else if (x == 2) cnt2++;
+        else cnt3++;
     }
-    cout<<ans<<endl;
+
+    long long result = 0;
+    result += 1LL * cnt1 * (cnt1 - 1) / 2;
+    result += 1LL * cnt1 * cnt2;
+    result += 1LL * cnt2 * cnt3;
+
+    cout << result << endl;
 }
 
 int main() {
