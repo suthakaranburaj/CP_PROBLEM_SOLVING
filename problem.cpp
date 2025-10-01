@@ -25,21 +25,18 @@ void print_1d_array(vector<int>&arr){
     cout<<endl;
 }
 
-void input_1d_array(vector<int>&arr,int &n){
-    cin >> n;
+void input_1d_array(vector<int>&arr,int &n,int &k){
+    cin>>n;
+    cin>>k;
     arr.resize(n);
-    for (int i = 0; i < n; i++) {
-        cin >> arr[i];
+    for(int i = 0 ;i<n; i++){
+        cin>>arr[i];
     }
 }
-
 void input_1d_array_leetcode(vector<int>&arr,int n){
     cin>>n;
     string s;
     cin >> s;
-
-    arr.clear();
-    arr.reserve(n);
 
     int num = 0;
     bool inNumber = false, isNegative = false;
@@ -64,37 +61,132 @@ void input_1d_array_leetcode(vector<int>&arr,int n){
     }
 }
 
+class MaxHeap {
+public:
+    int size;
+    int capacity;
+    int *arr;
+
+    MaxHeap(int s) {
+        this->size = 0;
+        this->capacity = s;
+        arr = new int[capacity];
+    }
+
+    ~MaxHeap() {
+        delete[] arr;
+    }
+
+    int parent(int index) { return (index - 1) / 2; }
+    int leftChild(int index) { return 2 * index + 1; }
+    int rightChild(int index) { return 2 * index + 2; }
+
+    void insert(int v) {
+        if (this->size == this->capacity) {
+            cout << "The Max Heap is Full" << endl;
+            return;
+        }
+
+        this->arr[size] = v;
+        int k = this->size;
+        this->size++;
+
+        while (k != 0 && this->arr[parent(k)] < this->arr[k]) {
+            swap(this->arr[parent(k)], this->arr[k]);
+            k = parent(k);
+        }
+    }
+
+    bool isEmpty() {
+        return this->size == 0;
+    }
+
+    int heapSize() {
+        return this->size;
+    }
+
+    int getMax() {
+        if (this->size == 0) return INT_MIN;
+        return this->arr[0];
+    }
+
+    void heapify(int index) {
+        int lc = leftChild(index);
+        int rc = rightChild(index);
+
+        int largest = index;
+        if (lc < this->size && this->arr[largest] < this->arr[lc]) {
+            largest = lc;
+        }
+        if (rc < this->size && this->arr[largest] < this->arr[rc]) {
+            largest = rc;
+        }
+
+        if (largest != index) {
+            swap(this->arr[index], this->arr[largest]);
+            heapify(largest);
+        }
+    }
+
+    void changeKey(int index, int v) {
+        this->arr[index] = v;
+        while (index != 0 && this->arr[parent(index)] < this->arr[index]) {
+            swap(this->arr[parent(index)], this->arr[index]);
+            index = parent(index);
+        }
+    }
+
+    int extractMax() {
+        if (this->size == 0) {
+            return INT_MIN;
+        }
+
+        if (this->size == 1) {
+            this->size--;
+            return this->arr[0];
+        }
+
+        int maximum = this->arr[0];
+        this->arr[0] = this->arr[this->size - 1];
+        this->size--;
+
+        heapify(0);
+        return maximum;
+    }
+
+    void deleteKey(int index) {
+        if (index >= this->size) {
+            cout << "Index is greater than size of Heap" << endl;
+            return;
+        }
+        changeKey(index, INT_MAX);
+        extractMax();
+    }
+};
 /*
     Happy Coding
 */
-void heapify(int index,int n,vector<int>&arr){
-    int lc = 2*index+1;
-    int rc = 2*index+2;
-
-    int smallest = index;
-    if (lc < n && arr[smallest] < arr[lc]) {
-        smallest = lc;
+int kth_largest_element(vector<int>&arr,int n,int &k){
+    MaxHeap mh(n);
+    for(int i = 0;i<n; i++){
+        mh.insert(arr[i]);
     }
-    if (rc < n && arr[smallest] < arr[rc]) {
-        smallest = rc;
+    int parent = 0;
+    int ans = -1;
+    for (int i = 0; i < k; i++) {
+        ans = mh.extractMax();
     }
-
-    if (smallest != index) {
-        swap(arr[index], arr[smallest]);
-        heapify(smallest,n,arr);
-    }
-}
-void convert_min_to_max_heap(vector<int>&arr, int n){
-    for(int i = n/2 - 1;i>=0 ; i--){
-        heapify(i,n,arr);
-    }
+    return ans;
 }
 void solve() {
     vector<int>arr;
     int n;
-    input_1d_array(arr,n);
-    convert_min_to_max_heap(arr,n);
-    print_1d_array(arr);
+    int k;
+    input_1d_array(arr,n,k);
+    int ans = kth_largest_element(arr,n,k);
+    // print_1d_array(arr);
+    cout<<ans<<endl;
+    
 }
 
 int main() {
