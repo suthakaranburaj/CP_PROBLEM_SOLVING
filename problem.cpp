@@ -62,7 +62,19 @@ void input_1d_array_leetcode(vector<int>&arr,int n){
 /*
     Happy Coding
 */
+int fibonacci_no(int n,vector<int>&dp){
+    if(n <= 1){
+        return n;
+    }
+    if(dp[n]!= -1) return dp[n];
+    return dp[n] = fibonacci_no(n-1,dp) + fibonacci_no(n-2,dp);
+}
 void solve() {
+    int n;
+    cin>>n;
+    vector<int>dp(n+1,-1);
+    int ans = fibonacci_no(n,dp);
+    cout<<ans<<endl;
     
 }
 
@@ -77,21 +89,7 @@ int main() {
     int a = 1;
     cin>>a;
     while(a--) {
-        int N;
-        cin >> N;
-        if (N % 2 == 1) {
-            for (int i = 0; i < N; i++) {
-                cout << (2 * i % N) + 1 << " ";
-            }
-        } else {
-            for (int i = 0; i < N / 2; i++) {
-                cout << (2 * i + 2) << " ";
-            }
-            for (int i = 0; i < N / 2; i++) {
-                cout << (2 * i + 1) << " ";
-            }
-        }
-        cout << endl;
+        solve();
     }
     return 0;
 }
