@@ -25,7 +25,7 @@ void print_1d_array(vector<int>&arr){
     cout<<endl;
 }
 
-void input_1d_array(vector<int>&arr,int n){
+void input_1d_array(vector<int>&arr,int &n){
     cin>>n;
     arr.resize(n);
     for(int i = 0 ;i<n; i++){
@@ -62,27 +62,31 @@ void input_1d_array_leetcode(vector<int>&arr,int n){
 /*
     Happy Coding
 */
+
+int frog_jump(vector<int>&arr, int &n){
+    int prev = 0;
+    int prev2 = 0;
+
+    for(int i = 1;i<n;i++){
+        int oneStep = prev + abs(arr[i]-arr[i-1]);
+        int twoStep = INT_MAX;
+
+        if(i > 1){
+            twoStep = prev2 + abs(arr[i] - arr[i-2]);
+        }
+
+        int curr = min(oneStep,twoStep);
+        prev2 = prev;
+        prev = curr;
+    }
+
+    return prev;
+}
 void solve() {
+    vector<int>arr;
     int n;
-    cin>>n;
-    // 1 = 1
-    // 2 = 2
-    int prev1 = 1;
-    int prev2 = 2;
-    int ans = 0;
-    if(n ==1 ){
-        cout<<"1"<<endl;
-        return;
-    }
-    if(n ==2 ){
-        cout<<"2"<<endl;
-        return;
-    }
-    for(int i = 3;i<n;i++){
-        ans = prev1 + prev2;
-        prev1 = prev2;
-        prev2 = ans;
-    }
+    input_1d_array(arr,n);
+    int ans = frog_jump(arr,n);
     cout<<ans<<endl;
 }
 
