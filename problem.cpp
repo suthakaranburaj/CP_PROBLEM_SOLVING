@@ -25,13 +25,18 @@ void print_1d_array(vector<int>&arr){
     cout<<endl;
 }
 
-void input_1d_array(vector<int>&arr,int &n,int &x, int &k){
+const int MAXA = 1e7 + 5;
+vector<int> freq(MAXA, 0);
+
+void input_1d_array(vector<int>&arr,int &n,int &max_no){
     cin>>n;
-    cin>>x;
-    cin>>k;
     arr.resize(n);
     for(int i = 0 ;i<n; i++){
-        cin>>arr[i];
+        int temp = 0;
+        cin>>temp;
+        arr[i] = temp;
+        max_no = max(max_no, temp);
+        freq[temp]++;
     }
 }
 void input_1d_array_leetcode(vector<int>&arr,int n){
@@ -64,34 +69,45 @@ void input_1d_array_leetcode(vector<int>&arr,int n){
 /*
     Happy Coding
 */
-int find_ans(vector<int> &arr,int &n,int &x, int &k){
-    sort(arr.begin(),arr.end());
-    int new_x = x + (k * 100);
-    int rank = n;
-    for(int i = 0;i<n;i++){
-        if(new_x >= arr[i]){
-            rank--;
-        }
-        else {
-            if(k > 0){
-                k--;
-                rank--;
-            }
-            else{
-                break;
-            }
+bool no_divisible(vector<int> &arr,int &num){
+    for(int i = 0;i<arr.size();i++){
+        if(arr[i]%num == 0){
+            return false;
         }
     }
-    return rank + 1;
+    return true;
+}
+int find_ans(vector<int> &arr,int &n,int &min_no){
+    for(int i = min_no;i>=5;i--){
+        if(no_divisible(arr,i)){
+            return i;
+        }
+    }
+    return -1;
 }
 void solve() {
-    vector<int>arr;
     int n;
-    int x;
-    int k;
-    input_1d_array(arr,n,x,k);
-    int ans = find_ans(arr,n,x,k);
-    cout<<ans<<endl;
+    cin >> n;
+    vector<int> A(n);
+    for (int i = 0; i < n; i++) {
+        cin >> A[i];
+    }
+    int M = *max_element(A.begin(), A.end());
+    int count_M = 0;
+    bool found_less = false;
+    for (int x : A) {
+        if (x == M) count_M++;
+        if (x < M - 1) found_less = true;
+    }
+    if (count_M >= 2) {
+        cout << M - 1 << endl;
+    } else {
+        if (found_less) {
+            cout << M - 1 << endl;
+        } else {
+            cout << M - 2 << endl;
+        }
+    }
 }
 
 int main() {
