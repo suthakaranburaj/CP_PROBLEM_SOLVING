@@ -25,8 +25,10 @@ void print_1d_array(vector<int>&arr){
     cout<<endl;
 }
 
-void input_1d_array(vector<int>&arr,int &n){
+void input_1d_array(vector<int>&arr,int &n,int &x, int &k){
     cin>>n;
+    cin>>x;
+    cin>>k;
     arr.resize(n);
     for(int i = 0 ;i<n; i++){
         cin>>arr[i];
@@ -62,18 +64,34 @@ void input_1d_array_leetcode(vector<int>&arr,int n){
 /*
     Happy Coding
 */
+int find_ans(vector<int> &arr,int &n,int &x, int &k){
+    sort(arr.begin(),arr.end());
+    int new_x = x + (k * 100);
+    int rank = n;
+    for(int i = 0;i<n;i++){
+        if(new_x >= arr[i]){
+            rank--;
+        }
+        else {
+            if(k > 0){
+                k--;
+                rank--;
+            }
+            else{
+                break;
+            }
+        }
+    }
+    return rank + 1;
+}
 void solve() {
-    // vector<int>arr;
-    // int n;
-    // input_1d_array(arr,n);
+    vector<int>arr;
     int n;
-    cin>>n;
-    if(n%2 == 0){
-        cout<<n/2<<endl;
-    }
-    else{
-        cout<<(n/2)+1<<endl;
-    }
+    int x;
+    int k;
+    input_1d_array(arr,n,x,k);
+    int ans = find_ans(arr,n,x,k);
+    cout<<ans<<endl;
 }
 
 int main() {
