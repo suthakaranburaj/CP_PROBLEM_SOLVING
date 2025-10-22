@@ -62,21 +62,42 @@ void input_1d_array_leetcode(vector<int>&arr,int n){
 /*
     Happy Coding
 */
+
+int gcd(int a, int b) {
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+bool compare(pair<int, int> a, pair<int, int> b) {
+    if (a.first != b.first)
+        return a.first > b.first;
+    return a.second < b.second;
+}
 void solve() {
-    long long X,Y;
-    cin>>X>>Y;
-    long long even=0, odd=0;
-    for(long long m = X; m <= Y; m += X){
-        if(m % 2 == 0) even += m;
-        else odd += m;
+    int N;
+    cin>>N;
+    if(N == 1){
+        cout<<"1"<<endl;
+        return;
     }
-    if(even >= odd){
-        cout<<"YES"<<endl;
-    } 
-    else 
-    {
-        cout<<"NO"<<endl;
+
+    vector<pair<int, int>> v;
+
+    for (int i = 1; i <= N; i++) {
+        int g = gcd(i, N);
+        v.push_back({g, i});
     }
+
+    sort(v.begin(), v.end(), compare);
+
+    for (int i = 0; i < N; i++) {
+        cout << v[i].second << " ";
+    }
+    cout << endl;
+
 }
 
 int main() {
