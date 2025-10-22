@@ -25,18 +25,11 @@ void print_1d_array(vector<int>&arr){
     cout<<endl;
 }
 
-const int MAXA = 1e7 + 5;
-vector<int> freq(MAXA, 0);
-
-void input_1d_array(vector<int>&arr,int &n,int &max_no){
+void input_1d_array(vector<int>&arr,int &n){
     cin>>n;
     arr.resize(n);
     for(int i = 0 ;i<n; i++){
-        int temp = 0;
-        cin>>temp;
-        arr[i] = temp;
-        max_no = max(max_no, temp);
-        freq[temp]++;
+        cin>>arr[i];
     }
 }
 void input_1d_array_leetcode(vector<int>&arr,int n){
@@ -69,44 +62,20 @@ void input_1d_array_leetcode(vector<int>&arr,int n){
 /*
     Happy Coding
 */
-bool no_divisible(vector<int> &arr,int &num){
-    for(int i = 0;i<arr.size();i++){
-        if(arr[i]%num == 0){
-            return false;
-        }
-    }
-    return true;
-}
-int find_ans(vector<int> &arr,int &n,int &min_no){
-    for(int i = min_no;i>=5;i--){
-        if(no_divisible(arr,i)){
-            return i;
-        }
-    }
-    return -1;
-}
 void solve() {
-    int n;
-    cin >> n;
-    vector<int> A(n);
-    for (int i = 0; i < n; i++) {
-        cin >> A[i];
+    long long X,Y;
+    cin>>X>>Y;
+    long long even=0, odd=0;
+    for(long long m = X; m <= Y; m += X){
+        if(m % 2 == 0) even += m;
+        else odd += m;
     }
-    int M = *max_element(A.begin(), A.end());
-    int count_M = 0;
-    bool found_less = false;
-    for (int x : A) {
-        if (x == M) count_M++;
-        if (x < M - 1) found_less = true;
-    }
-    if (count_M >= 2) {
-        cout << M - 1 << endl;
-    } else {
-        if (found_less) {
-            cout << M - 1 << endl;
-        } else {
-            cout << M - 2 << endl;
-        }
+    if(even >= odd){
+        cout<<"YES"<<endl;
+    } 
+    else 
+    {
+        cout<<"NO"<<endl;
     }
 }
 
