@@ -63,20 +63,10 @@ void input_1d_array_leetcode(vector<int>&arr,int n){
     Happy Coding
 */
 void solve() {
+    vector<int>arr;
     int n;
-    string s;
-    cin>>n>>s;
-    int runs = 1;
-    for (int i=1; i<n; i++) {
-        if (s[i]!=s[i-1]) {
-            runs++;
-        }
-    }
-    if (runs >= 3) {
-        cout<<"Alice"<<endl;
-    } else {
-        cout<<"Bob"<<endl;
-    }
+    input_1d_array(arr,n);
+    
 }
 
 int main() {
