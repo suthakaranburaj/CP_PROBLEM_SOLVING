@@ -26,7 +26,7 @@ void print_1d_array(vector<int>&arr){
 }
 
 void input_1d_array(vector<int>&arr,int &n){
-    cin>>n;
+    // cin>>n;
     arr.resize(n);
     for(int i = 0 ;i<n; i++){
         cin>>arr[i];

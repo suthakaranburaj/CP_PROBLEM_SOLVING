@@ -62,47 +62,32 @@ void input_1d_array_leetcode(vector<int>&arr,int n){
 /*
     Happy Coding
 */
-void solve() {
-    vector<int>arr1;
-    string arr2;
-    int n,k;
-    cin>>n>>k;
-    input_1d_array(arr1,n);
-    // input_1d_array(arr2,n);
-    cin>>arr2;
-    
-    vector<int>temp;
-    int n1 = arr1.size();
-    for(int i = 0;i<n1;i++){
-        int t_size = temp.size();
-        if(t_size < k){
-            if(arr2[i] != '1'){
-                temp.push_back(arr1[i]);
-            }
-        }
-        else{
-            if(arr2[i] != '1'){
-                sort(temp.begin(),temp.end());
-                int largest = temp[t_size-1];
-                if(largest > arr1[i]){
-                    temp.pop_back();
-                    temp.push_back(arr1[i]);
-                }
-            }
-        }
-    }
 
-    if(temp.size() < k){
-        cout<<"-1"<<endl;
-        return;
+bool solve1(int n, int s, int start, vector<int>& temp, vector<int>& data) {
+    
+    if (temp.size() == n) {
+        return (s == 0);
     }
-    int ans = 0;
-    for(int i = 0;i<k;i++){
-        ans += temp[i];
+    for (int i = start; i < data.size(); i++) {
+        if (data[i] > s) break;
+        temp.push_back(i);
+        if (solve1(n, s - data[i], i, temp, data))
+            return true;
+        temp.pop_back();
     }
-    cout<<ans<<endl;
-    return;
+    return false;
 }
+
+void solve() {
+    int n, s;
+    cin >> n >> s;
+
+    int max_sum = 6 * n;
+    int min_without_six = 5 * n;
+    int ans = max_sum - max(0, s - min_without_six);
+    cout << ans << endl;
+}
+
 
 int main() {
 #ifndef ONLINE_JUDGE
