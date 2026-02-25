@@ -9,7 +9,7 @@ using namespace std;
 #define all(x) (x).begin(),(x).end()
 #define sz(a) (int)(a).size()
 #include <bits/stdc++.h>
- 
+
 void swap(int* x, int* y) {
     int temp = *x;
     *x = *y;
@@ -63,10 +63,23 @@ void input_1d_array_leetcode(vector<int>&arr,int n){
     Happy Coding
 */
 void solve() {
-    vector<int>arr;
-    int n;
-    input_1d_array(arr,n);
-    
+    // vector<int>arr;
+    // int n;
+    // input_1d_array(arr,n);
+    string S,temp = "nta";
+    cin>>S;
+    if(S.size() < 3){
+        cout<<"No"<<endl;
+        return;
+    }
+    string a = S.substr(S.size() - 3, 3);
+    if(a == temp){
+        cout<<"Yes"<<endl;
+    }
+    else{
+        cout<<"No"<<endl;
+    }
+    return;
 }
 
 int main() {
@@ -78,7 +91,7 @@ int main() {
     fastio;
     
     int a = 1;
-    cin>>a;
+    // cin>>a;
     while(a--) {
         solve();
     }

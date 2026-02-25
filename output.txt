@@ -1,4 +1,1 @@
-Bob
-Alice
-Bob
-Alice
+Yes
