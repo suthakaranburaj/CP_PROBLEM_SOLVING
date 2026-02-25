@@ -9,7 +9,7 @@ using namespace std;
 #define all(x) (x).begin(),(x).end()
 #define sz(a) (int)(a).size()
 #include <bits/stdc++.h>
-
+ 
 void swap(int* x, int* y) {
     int temp = *x;
     *x = *y;
